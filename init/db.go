@@ -3,6 +3,7 @@ package ini
 import (
 	"fmt"
 
+	"github.com/hari0205/accu-task-crud/models"
 	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/postgres"
@@ -25,6 +26,7 @@ func ConnectToDB() {
 		panic(err.Error())
 	}
 
+	Db.AutoMigrate(&models.User{}, &models.Notes{}, models.Login{})
 	fmt.Println("DB connection established")
 	DB = Db
 
