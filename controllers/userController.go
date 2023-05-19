@@ -23,6 +23,7 @@ func SignUp(c *gin.Context) {
 			"status":  http.StatusBadRequest,
 			"message": "Bad input. Please check your input and try again",
 		})
+		return
 
 	}
 

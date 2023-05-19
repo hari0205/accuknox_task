@@ -3,23 +3,25 @@ version: '3.8'
 services:
   redis:
     container_name: redis
-    image: redis:alpine
+    image: redis:latest
     ports:
       - "6379:6379"
     volumes:
       - ./redisdata:/data
+    restart: always
 
   postgres:
     container_name: postgres
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+    restart: always
 
   accuknox-task:
     container_name: accuknox-task
@@ -31,9 +33,10 @@ services:
       - postgres
       - redis
     environment:
-      DATABASE_URL: "host=postgres user=postgres password=postgres dbname=postgres sslmode=disabled"
+      DATABASE_URL: "host=postgres port=5432 user=postgres password=postgres dbname=postgres sslmode=disable"
     ports:
       - "8080:8080"
+    restart: always
 
 volumes:
   pgdata:
