@@ -13,4 +13,4 @@ Steps to Run the project
 go run main.go
 ```
 
-- **OPTIONAL :** You can use the existing Database credentials are use docker for local instances for Databases 
+- **OPTIONAL :** You can use the existing Database credentials or use docker to run local instances for Databases 
