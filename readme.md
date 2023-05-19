@@ -14,3 +14,8 @@ go run main.go
 ```
 
 - **OPTIONAL :** You can use the existing Database credentials or use docker to run local instances for Databases 
+
+- TO pull image from docker
+```
+docker pull testdevhari/accuknox-task:latest
+```
