@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redisdata:/data
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  accuknox-task:
+    container_name: accuknox-task
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: "host=postgres user=postgres password=postgres dbname=postgres sslmode=disabled"
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
+  redisdata:
